@@ -4,11 +4,11 @@ const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 
 var db, collection;
+//mongodb+srv://cerealKing:erdrick@honeycluster-x2jnq.mongodb.net/test?retryWrites=true&w=majority
+const url = "mongodb+srv://cerealKing:erdrick@honeycluster-x2jnq.mongodb.net/test?retryWrites=true&w=majority";
+const dbName = "honeycluster";
 
-const url = "mongodb+srv://demo:demo@cluster0-q2ojb.mongodb.net/test?retryWrites=true";
-const dbName = "demo";
-
-app.listen(3000, () => {
+app.listen(3332, () => {
     MongoClient.connect(url, { useNewUrlParser: true }, (error, client) => {
         if(error) {
             throw error;
@@ -43,7 +43,26 @@ app.put('/messages', (req, res) => {
   db.collection('messages')
   .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
     $set: {
+
       thumbUp:req.body.thumbUp + 1
+      //thumbDown:req.body.thumbDown - 1
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: true
+  }, (err, result) => {
+    if (err) return res.send(err)
+    res.send(result)
+  })
+})
+
+app.put('/thumbdown', (req, res) => {
+  db.collection('messages')
+  .findOneAndUpdate({name: req.body.name, msg: req.body.msg}, {
+    $set: {
+      thumbUp:req.body.thumbUp - 1
+      //thumbDown:req.body.thumbDown - 1
+
     }
   }, {
     sort: {_id: -1},

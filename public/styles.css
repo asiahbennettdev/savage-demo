@@ -4,3 +4,22 @@ body{
 h3{
   margin-top: 40px;
 }
+img {
+  border-radius: 12px;
+}
+h1 {
+  border: 2px solid black;
+  width: 15%;
+  padding-bottom: 3px;
+  color: white;
+  background: black;
+  font-family: helvetica;
+}
+h2 {
+  border: 2px solid black;
+  width: 27%;
+  padding-bottom: 3px;
+  color: white;
+  background: black;
+  font-family: helvetica;
+}
